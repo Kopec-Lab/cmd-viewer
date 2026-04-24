@@ -1,5 +1,9 @@
 # cmd
 
+<p align="center">
+  <img src="assets/cmd-intro.png" width="400" alt="CMD"/>
+</p>
+
 `cmd` is a terminal-first molecular dynamics viewer aimed at quick inspection of
 GROMACS systems on local machines, HPC clusters, and remote shells. The first
 prototype focuses on:

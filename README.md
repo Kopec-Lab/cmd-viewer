@@ -1,7 +1,7 @@
 # cmd
 
 <p align="center">
-  <img src="assets/cmd-intro.png" width="400" alt="CMD"/>
+  <img src="assets/cmd-intro.png" width="800" alt="CMD"/>
 </p>
 
 `cmd` is a terminal-first molecular dynamics viewer aimed at quick inspection of

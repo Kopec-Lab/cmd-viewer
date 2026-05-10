@@ -144,7 +144,7 @@ def test_ion_colors_follow_type_specific_mapping() -> None:
     assert visual_for_atom("class", "NA", "NA").char == "*"
 
 
-def test_resid_color_mode_cycles_by_residue_id_and_enlarges_ions() -> None:
+def test_resid_color_mode_cycles_by_residue_id_and_keeps_default_ion_size() -> None:
     ion_one = visual_for_atom("resid", "K", "K", 1)
     ion_two = visual_for_atom("resid", "K", "K", 2)
     assert ion_one.color_id != ion_two.color_id

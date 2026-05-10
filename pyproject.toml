@@ -30,6 +30,11 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Chemistry",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Kopec-Lab/cmd-viewer"
+Repository = "https://github.com/Kopec-Lab/cmd-viewer"
+Issues = "https://github.com/Kopec-Lab/cmd-viewer/issues"
+
 [project.optional-dependencies]
 dev = [
   "pytest>=8,<9",

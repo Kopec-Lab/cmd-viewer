@@ -1,7 +1,7 @@
 # cmd
 
 <p align="center">
-  <img src="assets/cmd-intro.png" width="800" alt="CMD"/>
+  <img src="https://raw.githubusercontent.com/Kopec-Lab/cmd-viewer/main/assets/cmd-intro.png" width="800" alt="CMD"/>
 </p>
 
 `cmd` is a terminal-first molecular dynamics viewer aimed at quick inspection of
@@ -61,7 +61,7 @@ For local iteration during development:
 pip install -e .
 ```
 
-Later, once packaging metadata and release flow are in place:
+Once published on PyPI:
 
 ```bash
 pip install cmd-md
@@ -75,13 +75,19 @@ This repository includes a GitHub Actions workflow at
 - builds an sdist and wheel
 - runs `twine check` on the generated distributions
 - publishes to PyPI using Trusted Publishing when a GitHub release is published
+- uses the GitHub Actions environment `pypi` for an extra approval boundary
+
+This repository also includes `.github/workflows/package-checks.yml`, which
+builds the package, verifies version consistency, runs tests, and checks the
+README/distributions on pushes, pull requests, and manual runs.
 
 One-time PyPI setup:
 
-1. Create the `cmd-md` project on PyPI, or configure a pending publisher for it.
-2. In PyPI, add this GitHub repository as a Trusted Publisher for the workflow
-   file `.github/workflows/release.yml`.
-3. Make sure the GitHub release is created from the version you want to publish.
+1. In PyPI, create a pending GitHub Actions publisher for project `cmd-md`.
+2. Point it at repository `Kopec-Lab/cmd-viewer`.
+3. Set the workflow file to `.github/workflows/release.yml`.
+4. Set the environment name to `pypi`.
+5. Make sure the GitHub release is created from the version you want to publish.
 
 Typical release flow:
 
@@ -92,7 +98,8 @@ git push origin v0.1.1
 ```
 
 Then publish a GitHub release for that tag. The workflow will build the package
-and upload it to PyPI automatically.
+and upload it to PyPI automatically after the `pypi` environment rules, if any,
+are satisfied.
 
 Once published, installation on a remote machine becomes:
 

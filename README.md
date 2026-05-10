@@ -67,6 +67,39 @@ Later, once packaging metadata and release flow are in place:
 pip install cmd-md
 ```
 
+## Release To PyPI
+
+This repository includes a GitHub Actions workflow at
+`.github/workflows/release.yml` that:
+
+- builds an sdist and wheel
+- runs `twine check` on the generated distributions
+- publishes to PyPI using Trusted Publishing when a GitHub release is published
+
+One-time PyPI setup:
+
+1. Create the `cmd-md` project on PyPI, or configure a pending publisher for it.
+2. In PyPI, add this GitHub repository as a Trusted Publisher for the workflow
+   file `.github/workflows/release.yml`.
+3. Make sure the GitHub release is created from the version you want to publish.
+
+Typical release flow:
+
+```bash
+# update version in pyproject.toml and src/cmd_viewer/__init__.py
+git tag v0.1.1
+git push origin v0.1.1
+```
+
+Then publish a GitHub release for that tag. The workflow will build the package
+and upload it to PyPI automatically.
+
+Once published, installation on a remote machine becomes:
+
+```bash
+pip install cmd-md
+```
+
 ## Run
 
 ```bash

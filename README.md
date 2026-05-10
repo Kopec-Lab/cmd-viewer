@@ -64,7 +64,7 @@ pip install -e .
 Once published on PyPI:
 
 ```bash
-pip install cmd-md
+pip install cmd-viewer
 ```
 
 ## Release To PyPI
@@ -83,7 +83,7 @@ README/distributions on pushes, pull requests, and manual runs.
 
 One-time PyPI setup:
 
-1. In PyPI, create a pending GitHub Actions publisher for project `cmd-md`.
+1. In PyPI, create a pending GitHub Actions publisher for project `cmd-viewer`.
 2. Point it at repository `Kopec-Lab/cmd-viewer`.
 3. Set the workflow file to `.github/workflows/release.yml`.
 4. Set the environment name to `pypi`.
@@ -92,7 +92,8 @@ One-time PyPI setup:
 Typical release flow:
 
 ```bash
-# update version in pyproject.toml and src/cmd_viewer/__init__.py
+# update CHANGELOG.md if needed
+# update version in pyproject.toml and src/cmd_viewer/__init__.py if needed
 git tag v0.1.1
 git push origin v0.1.1
 ```
@@ -104,7 +105,7 @@ are satisfied.
 Once published, installation on a remote machine becomes:
 
 ```bash
-pip install cmd-md
+pip install cmd-viewer
 ```
 
 ## Run

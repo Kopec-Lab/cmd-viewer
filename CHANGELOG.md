@@ -2,6 +2,15 @@
 
 All notable changes to `cmd-viewer` will be documented in this file.
 
+## [Unreleased]
+
+## [0.1.1] - 2026-05-11
+
+### Added
+
+- Explicit support and documentation for OpenMM-style `.pdb + .dcd`
+  trajectory loading, backed by a regression test.
+
 ## [0.1.0] - 2026-05-10
 
 Initial public release.

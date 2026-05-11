@@ -9,13 +9,13 @@ from cmd_viewer.app import run_viewer
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="cmd",
-        description="Terminal molecular dynamics viewer for GROMACS files.",
+        description="Terminal molecular dynamics viewer for structure and trajectory files.",
     )
-    parser.add_argument("structure", help="Structure file (.gro, .pdb, ...).")
+    parser.add_argument("structure", help="Structure/topology file (.gro, .pdb, ...).")
     parser.add_argument(
         "trajectory",
         nargs="?",
-        help="Optional trajectory file (.xtc, .trr, ...).",
+        help="Optional trajectory file (.xtc, .trr, .dcd, ...).",
     )
     parser.add_argument(
         "--selection",

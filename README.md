@@ -5,15 +5,16 @@
 </p>
 
 `cmd` is a terminal-first molecular dynamics viewer aimed at quick inspection of
-GROMACS systems on local machines, HPC clusters, and remote shells. The first
-prototype focuses on:
+simulation systems on local machines, HPC clusters, and remote shells. The
+first prototype focuses on:
 
-- `.pdb` / `.gro` structures with optional `.xtc` trajectories
+- `.pdb` / `.gro` structures with optional `.xtc` / `.dcd` trajectories
 - terminal-only rendering with no GUI dependencies
 - water hidden by default
 - atom selections that stay close to VMD workflows
 - a single-command install path through `pip` or `conda` later
 - responsive loading for quick trajectory sanity checks
+- OpenMM-friendly `.pdb + .dcd` workflows in addition to GROMACS inputs
 
 The internal Python package is named `cmd_viewer` to avoid colliding with
 Python's standard-library `cmd` module. The installed executable remains `cmd`.
@@ -108,10 +109,14 @@ Once published, installation on a remote machine becomes:
 pip install cmd-viewer
 ```
 
+For the ongoing maintenance and release workflow, see
+[`RELEASING.md`](./RELEASING.md).
+
 ## Run
 
 ```bash
 cmd system.gro traj.xtc
+cmd openmm_system.pdb traj.dcd
 cmd system.pdb --selection "protein or resname POPC"
 cmd system.gro traj.xtc --show-water
 cmd system.gro traj.xtc --view-mode trace --selection protein
@@ -131,6 +136,7 @@ Minimal launch:
 
 ```bash
 cmd system.gro traj.xtc
+cmd openmm_system.pdb traj.dcd
 ```
 
 Protein-centric overview:
@@ -151,6 +157,14 @@ If you are using the test systems in this repository:
 cmd test-trajs/traak/after90ns-k.pdb test-trajs/traak/traj_comp.xtc --selection protein --view-mode cartoon
 cmd test-trajs/popc/em.gro test-trajs/popc/whole.xtc --view-mode coarse
 cmd test-trajs/ga/reference-structure-2M-KCl.gro test-trajs/ga/04-pt7scaling-11pA.xtc --selection "resname K" --color-mode resid
+```
+
+For OpenMM-style trajectories:
+
+```bash
+cmd system.pdb trajectory.dcd
+cmd system.pdb trajectory.dcd --selection protein --view-mode cartoon
+cmd system.pdb trajectory.dcd --selection "protein or resname K" --color-mode resid
 ```
 
 ## Controls

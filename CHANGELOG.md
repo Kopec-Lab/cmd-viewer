@@ -2,7 +2,7 @@
 
 All notable changes to `cmd-viewer` will be documented in this file.
 
-## [0.1.2] - 2026-05-17
+## [0.1.3] - 2026-05-17
 
 ### Fixed
 
@@ -12,6 +12,9 @@ All notable changes to `cmd-viewer` will be documented in this file.
 - CHARMM-style protein residue names `HSD`, `HSE`, and `HSP` are now treated
   as protein residues instead of ligand-like `D` markers in coarse/cartoon
   renderings.
+- GitHub Actions release workflows now run on Node 24-capable action versions,
+  opt into Node 24 explicitly, and disable PyPI attestations to avoid release
+  publish failures in Trusted Publishing.
 
 ## [0.1.1] - 2026-05-17
 

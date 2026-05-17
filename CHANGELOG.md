@@ -2,9 +2,16 @@
 
 All notable changes to `cmd-viewer` will be documented in this file.
 
-## [Unreleased]
+## [0.1.2] - 2026-05-17
 
-No unreleased changes currently.
+### Fixed
+
+- Protein terminal caps `ACE` and `NME` are now treated as protein residues in
+  renderings and join protein traces in coarse/cartoon modes instead of
+  falling back to ligand-like markers.
+- CHARMM-style protein residue names `HSD`, `HSE`, and `HSP` are now treated
+  as protein residues instead of ligand-like `D` markers in coarse/cartoon
+  renderings.
 
 ## [0.1.1] - 2026-05-17
 

@@ -16,6 +16,17 @@ TRACE_PRIORITY = {
     "C3'": 4,
 }
 
+PROTEIN_CAP_TRACE_PRIORITY = {
+    "ACE": {
+        "C": 0,
+        "CH3": 1,
+    },
+    "NME": {
+        "N": 0,
+        "CH3": 1,
+    },
+}
+
 COARSE_CHAR_MAP = {
     "lipid": "O",
     "ion": "*",
@@ -158,7 +169,7 @@ def _build_trace_payload(
 
     previous_trace: tuple[np.ndarray, int, str] | None = None
     for start, end in residue_blocks:
-        trace_index = _select_trace_index(atom_names, start, end)
+        trace_index = _select_trace_index(atom_names, resnames, start, end)
         if trace_index is None:
             continue
         point = positions[trace_index]
@@ -285,7 +296,7 @@ def _build_protein_path_payload(
         element = elements[start]
         residue_class = biomolecular_class(resname, element)
 
-        trace_index = _select_trace_index(atom_names, start, end)
+        trace_index = _select_trace_index(atom_names, resnames, start, end)
         if residue_class == "protein":
             if trace_index is None:
                 _append_protein_segment(
@@ -459,11 +470,29 @@ def _residue_blocks(resids: list[int], resnames: list[str]) -> list[tuple[int, i
     return blocks
 
 
-def _select_trace_index(atom_names: list[str], start: int, end: int) -> int | None:
+def _select_trace_index(
+    atom_names: list[str],
+    resnames: list[str],
+    start: int,
+    end: int,
+) -> int | None:
     best_index: int | None = None
     best_priority = math.inf
     for index in range(start, end):
         priority = TRACE_PRIORITY.get(atom_names[index].upper())
+        if priority is not None and priority < best_priority:
+            best_index = index
+            best_priority = priority
+    if best_index is not None:
+        return best_index
+
+    residue_name = resnames[start].upper()
+    cap_priority = PROTEIN_CAP_TRACE_PRIORITY.get(residue_name)
+    if cap_priority is None:
+        return None
+
+    for index in range(start, end):
+        priority = cap_priority.get(atom_names[index].upper())
         if priority is not None and priority < best_priority:
             best_index = index
             best_priority = priority

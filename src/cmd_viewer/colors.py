@@ -44,6 +44,7 @@ LIPID_RESNAMES = {
 }
 
 PROTEIN_RESNAMES = {
+    "ACE",
     "ALA",
     "ARG",
     "ASN",
@@ -60,11 +61,15 @@ PROTEIN_RESNAMES = {
     "HID",
     "HIE",
     "HIP",
+    "HSD",
+    "HSE",
+    "HSP",
     "ILE",
     "LEU",
     "LYS",
     "LYN",
     "MET",
+    "NME",
     "PHE",
     "PRO",
     "SER",

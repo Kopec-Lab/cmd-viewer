@@ -85,6 +85,33 @@ def test_coarse_payload_uses_trace_only_for_protein() -> None:
     assert len(payload.line_starts) == 1
 
 
+def test_coarse_payload_treats_ace_and_nme_as_protein_caps() -> None:
+    positions = np.array(
+        [
+            [0.0, 0.0, 0.0],
+            [0.4, 0.0, 0.0],
+            [1.2, 0.0, 0.0],
+            [2.0, 0.0, 0.0],
+            [2.4, 0.0, 0.0],
+        ]
+    )
+    payload = build_frame_payload(
+        view_mode="coarse",
+        positions=positions,
+        resnames=["ACE", "ACE", "ALA", "NME", "NME"],
+        elements=["C", "C", "C", "N", "C"],
+        atom_names=["CH3", "C", "CA", "N", "CH3"],
+        resids=[1, 1, 2, 3, 3],
+        center=positions.mean(axis=0, keepdims=True),
+        box_corners=None,
+        max_points=100,
+        width=80,
+        height=24,
+    )
+    assert len(payload.point_positions) == 0
+    assert len(payload.line_starts) == 2
+
+
 def test_cartoon_payload_marks_helix_like_segments_and_keeps_non_protein_markers() -> None:
     positions = np.array(
         [
@@ -142,6 +169,22 @@ def test_cartoon_payload_marks_sheet_like_segments() -> None:
 def test_ion_colors_follow_type_specific_mapping() -> None:
     assert visual_for_atom("class", "K", "K").color_id != visual_for_atom("class", "CL", "CL").color_id
     assert visual_for_atom("class", "NA", "NA").char == "*"
+
+
+def test_terminal_caps_are_classified_as_protein() -> None:
+    ace_visual = visual_for_atom("class", "ACE", "C", 1)
+    nme_visual = visual_for_atom("class", "NME", "N", 2)
+    assert ace_visual.char == "@"
+    assert nme_visual.char == "@"
+
+
+def test_charmm_histidine_variants_are_classified_as_protein() -> None:
+    hsd_visual = visual_for_atom("class", "HSD", "N", 1)
+    hse_visual = visual_for_atom("class", "HSE", "N", 2)
+    hsp_visual = visual_for_atom("class", "HSP", "N", 3)
+    assert hsd_visual.char == "@"
+    assert hse_visual.char == "@"
+    assert hsp_visual.char == "@"
 
 
 def test_resid_color_mode_cycles_by_residue_id_and_keeps_default_ion_size() -> None:
